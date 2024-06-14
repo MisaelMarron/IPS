@@ -24,9 +24,9 @@
                 {% if user.is_superuser or user.is_staff %}
                 <!--<li><a href="{% url 'index'%}">Control operarios</a></li>-->
                 {% endif %}
-                <li><a href="{% url 'logout'%}">Cerrar seccion</a></li>
+                <li><a href="{% url 'logout'%}">Cerrar sesion</a></li>
                 {% else %}
-                <li><a href="{% url 'login'%}">Iniciar seccion</a></li>
+                <li><a href="{% url 'login'%}">Iniciar sesion</a></li>
                 {% endif %}
             </ul>
         </nav>
