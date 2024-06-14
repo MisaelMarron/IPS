@@ -5,14 +5,14 @@
 
 {% block content %}
 <div class="formulario" id="informacion">
-    <h2>Perfil de Usuario <button onclick="cambiarmodo()">Editar</button></h2>
+    <h2>Perfil de Usuario <button onclick="cambiarmodo()">&#9998;</button></h2>
     <p>Nombre de usuario: {{ user.username }}</p>
     <p>Correo electrónico: {{ user.email }}</p>
     <p>Nombre: {{ user.first_name }}</p>
     <p>Apellidos: {{ user.last_name }}</p>
 </div>
 <div class="formulario" id="editar">
-    <h2>Perfil de Usuario <button onclick="cambiarmodo()">Observar</button></h2>
+    <h2>Perfil de Usuario <button onclick="cambiarmodo()">&#128065;</button></h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

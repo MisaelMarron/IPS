@@ -1,4 +1,4 @@
-.formulario{
+.login{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,11 +14,11 @@
     background: #FFFFFF;
     border-radius: 50px;
 }
-.formulario form p label{
+.login form p label{
     font-size: 17px;
     padding: 10px;
 }
-.formulario form p input{
+.login form p input{
     border-radius: 50px;
     font-size: 14px;
 }
@@ -40,6 +40,7 @@ button[type="submit"] {
     border-radius: 5px; 
     font-size: 16px; 
 }
+
 .errorlist li{
     font-size: 14px;
     display: inline-block;
