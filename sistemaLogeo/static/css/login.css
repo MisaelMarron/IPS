@@ -1,0 +1,47 @@
+.formulario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position:absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #212121;
+    padding: 15px;
+    margin: 20px;
+    width: min(40%,300px);
+    background: #FFFFFF;
+    border-radius: 50px;
+}
+.formulario form p label{
+    font-size: 17px;
+    padding: 10px;
+}
+.formulario form p input{
+    border-radius: 50px;
+    font-size: 14px;
+}
+
+form, form p {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button[type="submit"] {
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 10px; 
+    box-sizing: border-box;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    font-size: 16px; 
+}
+.errorlist li{
+    font-size: 14px;
+    display: inline-block;
+    color: red;
+}

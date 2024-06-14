@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Veterinaria{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<body>
+    <!-- navegacion-->
+    <header class="header">
+        {% if user.is_authenticated %}
+        <div class="logo">
+            <a href="{% url 'perfil'%}" class="user-text"> User <img src="{% static 'img/icon-user.png' %}" alt="imagen user"></a>
+        </div>
+        {% endif %}
+        <nav>
+            <ul class="nav-links">
+                <li><a href="{% url 'index'%}">Inicio</a></li>
+                {% if user.is_authenticated %}
+                {% if user.is_superuser or user.is_staff %}
+                <li><a href="{% url 'index'%}">Control operarios</a></li>
+                {% endif %}
+                <li><a href="{% url 'logout'%}">Cerrar seccion</a></li>
+                {% else %}
+                <li><a href="{% url 'login'%}">Iniciar seccion</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+    <!-- el contenido de la pagina -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

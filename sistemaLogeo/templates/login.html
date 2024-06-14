@@ -1,0 +1,15 @@
+<!-- login.html-->
+{% extends "base.html" %}
+
+{% block title %}Página de inicio{% endblock %}
+
+{% block content %}
+<div class="formulario">
+<h2>Iniciar seccion</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Iniciar</button>
+</form>
+</div>
+{% endblock %}
