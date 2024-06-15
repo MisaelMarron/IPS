@@ -36,7 +36,7 @@ class OBRA(models.Model):
     
 # modelo unidad
 class UNIDAD(models.Model):
-    CodUni = models.AutoField(primary_key=True)
+    CodUni = models.CharField(max_length=60, primary_key=True)
     NomUni = models.CharField(max_length=60)
     ModUni = models.CharField(max_length=60)
     PreHor = models.DecimalField(max_digits=10, decimal_places=2)
@@ -112,9 +112,9 @@ class TRABAJO(models.Model):
         # validar el fecha final
         elif self.FecFin is None:
             errors['FecFin'] = ValidationError("Se debe colocar Fecha final")
-        # validar la diferencia de fechas
-        elif (self.FecFin - self.FecIni).days <= 0:
-            errors['FecFin'] = ValidationError("La fecha final debe ser posterior a la fecha inicial")
+        # contrato minimo de 90 dias y diferencia de fechas
+        elif (self.FecFin - self.FecIni).days <= 90:
+            errors['FecFin'] = ValidationError("El contrato debe tener 90 dias minimos")
         # mandar error
         if errors:
             raise ValidationError(errors)
@@ -132,6 +132,7 @@ class REGISTRO(models.Model):
     EstMaq = models.CharField(max_length=10)
     HorIni = models.DecimalField(max_digits=10, decimal_places=2,) 
     HorFin = models.DecimalField(max_digits=10, decimal_places=2)
+    fecCre = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         constraints = [
