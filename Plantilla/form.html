@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>(Nombre página)</title>
+    <!-- estilos para el programa-->
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/custom.css" rel="stylesheet" />  
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!--<link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />-->
+    <!-- Scripts -->
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.metisMenu.js"></script>
+    <script src="js/custom.js"></script>
+    <!--<script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>-->  
+</head>
+
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">(empresa)</a>
+            </div>
+            <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"> 
+                <!-- Botones superior-->
+                <a href="#" class="btn btn-danger square-btn-adjust">Login</a> 
+            </div>
+        </nav>
+        <!-- Navegador izquierdo -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <!-- Botones lado izquierdo-->
+                <ul class="nav" id="main-menu">
+                    <li>
+                        <a href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <!-- Modo rojo-->
+                        <!--<a class="active-menu" href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>-->
+                    </li>
+                    <li>
+                        <a href="form.html"><i class="fa fa-desktop fa-3x"></i> Registro de operarios</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-qrcode fa-3x"></i> Cálculo de horas trabajadas</a>
+                    </li>
+                    <li>
+                        <a href="reportes.html"><i class="fa fa-bar-chart-o fa-3x"></i> Generación de reportes</a>
+                    </li>
+                    <li>
+                        <a href="gestion.html"><i class="fa fa-table fa-3x"></i> Gestión de usuarios y roles</a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-edit fa-3x"></i> Historial de actividades </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- div cuerpo -->
+        <div id="page-wrapper">
+            <!-- cuerpo inicio-->
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                     <h2>Registro operarios</h2>   
+                     <form>
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" id="nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="apellido">Apellido:</label>
+                            <input type="text" id="apellido" name="apellido" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Dirección:</label>
+                            <input type="text" id="direccion" name="direccion" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono">Número de Teléfono:</label>
+                            <input type="tel" id="telefono" name="telefono" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="correo">Correo Electrónico:</label>
+                            <input type="email" id="correo" name="correo" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
+                            <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="puesto">Puesto de Trabajo:</label>
+                            <input type="text" id="puesto" name="puesto" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecha-inicio">Fecha de Inicio:</label>
+                            <input type="date" id="fecha-inicio" name="fecha-inicio" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Registrar</button>
+                        </div>
+                    </form>
+            
+                    </div>
+                </div>
+                 <!-- /. ROW  -->
+                 <hr />
+               <div class="row">
+                <div class="col-md-12">
+                     <!-- End Form Elements -->
+                </div>
+        </div>
+            <!-- cuerpo fin-->
+        </div>
+    </div>
+</body>
+</html>

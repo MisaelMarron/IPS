@@ -1,20 +1,22 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Kallpa{% endblock %}</title>
+    <title>(Nombre página)</title>
     <!-- estilos para el programa-->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/custom.css" rel="stylesheet" />  
+    <link href="css/font-awesome.css" rel="stylesheet" />
+    <!--<link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet" />-->
     <!-- Scripts -->
-    <script src="{% static 'js/jquery-1.10.2.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/jquery.metisMenu.js' %}"></script>
-    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.metisMenu.js"></script>
+    <script src="js/custom.js"></script>
+    <!--<script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+    <script src="assets/js/morris/morris.js"></script>-->  
 </head>
 
 <body>
@@ -27,11 +29,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{% url 'index'%}">Kallpa Comaser</a>
+                <a class="navbar-brand" href="index.html">(empresa)</a>
             </div>
             <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"> 
                 <!-- Botones superior-->
-                <a href="{% url 'login'%}" class="btn btn-danger square-btn-adjust">Login</a> 
+                <a href="#" class="btn btn-danger square-btn-adjust">Login</a> 
             </div>
         </nav>
         <!-- Navegador izquierdo -->
@@ -40,24 +42,24 @@
                 <!-- Botones lado izquierdo-->
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a href="{% url 'index'%}"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
                         <!-- Modo rojo-->
                         <!--<a class="active-menu" href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>-->
                     </li>
                     <li>
-                        <a href="{% url 'index'%}"><i class="fa fa-desktop fa-3x"></i> Registro de operarios</a>
+                        <a href="form.html"><i class="fa fa-desktop fa-3x"></i> Registro de operarios</a>
                     </li>
                     <li>
-                        <a href="{% url 'index'%}"><i class="fa fa-qrcode fa-3x"></i> Cálculo de horas trabajadas</a>
+                        <a href="#"><i class="fa fa-qrcode fa-3x"></i> Cálculo de horas trabajadas</a>
                     </li>
                     <li>
-                        <a href="{% url 'index'%}"><i class="fa fa-bar-chart-o fa-3x"></i> Generación de reportes</a>
+                        <a href="reportes.html"><i class="fa fa-bar-chart-o fa-3x"></i> Generación de reportes</a>
                     </li>
                     <li>
-                        <a href="{% url 'index'%}"><i class="fa fa-table fa-3x"></i> Gestión de usuarios y roles</a>
+                        <a href="gestion.html"><i class="fa fa-table fa-3x"></i> Gestión de usuarios y roles</a>
                     </li>
                     <li>
-                        <a href="{% url 'index'%}"><i class="fa fa-edit fa-3x"></i> Historial de actividades </a>
+                        <a href="#"><i class="fa fa-edit fa-3x"></i> Historial de actividades </a>
                     </li>
                 </ul>
             </div>
@@ -66,7 +68,7 @@
         <div id="page-wrapper">
             <!-- cuerpo inicio-->
             <div id="page-inner">
-                {% block content %}{% endblock %}
+
             </div>
             <!-- cuerpo fin-->
         </div>
