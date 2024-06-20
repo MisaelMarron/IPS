@@ -15,6 +15,7 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.metisMenu.js' %}"></script>
     <script src="{% static 'js/custom.js' %}"></script>
+    {% block nuevo %}{% endblock %}
 </head>
 
 <body>
@@ -31,7 +32,11 @@
             </div>
             <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"> 
                 <!-- Botones superior-->
-                <a href="{% url 'login'%}" class="btn btn-danger square-btn-adjust">Login</a> 
+                {% if user.is_authenticated %}
+                <a href="{% url 'logout'%}" class="btn btn-danger square-btn-adjust">Cerrar sesion</a> 
+                {% else %}
+                <a href="{% url 'login'%}" class="btn btn-danger square-btn-adjust">Iniciar sesion</a> 
+                {% endif %}
             </div>
         </nav>
         <!-- Navegador izquierdo -->
@@ -40,7 +45,7 @@
                 <!-- Botones lado izquierdo-->
                 <ul class="nav" id="main-menu">
                     <li>
-                        <a href="{% url 'index'%}"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>
+                        <a href="{% url 'index'%}"><i class="fa fa-user fa-3x"></i> Perfil de {{ user.username }}</a>
                         <!-- Modo rojo-->
                         <!--<a class="active-menu" href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>-->
                     </li>

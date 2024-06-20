@@ -6,10 +6,7 @@ class LoginForm(forms.Form):
     username = forms.CharField(label='Nombre de usuario')
     password = forms.CharField(label='Contraseña', widget=forms.PasswordInput)
 
-class UpdatePerfil(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'first_name', 'last_name']  
+
  
 
 

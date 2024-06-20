@@ -3,13 +3,20 @@
 
 {% block title %}Página de inicio{% endblock %}
 
+{% block nuevo %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+{% endblock %}
+
 {% block content %}
 <div class="login">
-<h2>Iniciar sesion</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Iniciar</button>
-</form>
+    <div class="container">
+        <h2 class="text-center">Iniciar sesion</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button id="funcionamiento" type="submit">Iniciar</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

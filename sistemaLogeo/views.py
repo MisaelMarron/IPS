@@ -29,17 +29,5 @@ def login_views(request):
 @login_required
 def logout_views(request):
     logout(request)
-    return redirect('index')
+    return redirect('login')
 
-#perfil 
-@login_required
-def perfil(request):
-    user = request.user
-    if request.method == 'POST':
-        form = UpdatePerfil(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('perfil')  
-    else:
-        form = UpdatePerfil(instance=user)
-    return render(request, 'perfil.html', {'form': form, 'user': user})

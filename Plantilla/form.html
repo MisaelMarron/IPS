@@ -68,57 +68,90 @@
         <div id="page-wrapper">
             <!-- cuerpo inicio-->
             <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                     <h2>Registro operarios</h2>   
-                     <form>
-                        <div class="form-group">
-                            <label for="nombre">Nombre:</label>
-                            <input type="text" id="nombre" name="nombre" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="apellido">Apellido:</label>
-                            <input type="text" id="apellido" name="apellido" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="direccion">Dirección:</label>
-                            <input type="text" id="direccion" name="direccion" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="telefono">Número de Teléfono:</label>
-                            <input type="tel" id="telefono" name="telefono" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="correo">Correo Electrónico:</label>
-                            <input type="email" id="correo" name="correo" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fecha-nacimiento">Fecha de Nacimiento:</label>
-                            <input type="date" id="fecha-nacimiento" name="fecha-nacimiento" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="puesto">Puesto de Trabajo:</label>
-                            <input type="text" id="puesto" name="puesto" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="fecha-inicio">Fecha de Inicio:</label>
-                            <input type="date" id="fecha-inicio" name="fecha-inicio" required>
-                        </div>
-                        <div class="form-group">
-                            <button type="submit">Registrar</button>
-                        </div>
-                    </form>
-            
-                    </div>
+                <div class="container">
+                <div class="login">
+                <h2>Iniciar sesion</h2>
+                <form method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="Id8JEhpGEKz513QfuSGuWPeN5iJDk8C9bCTV32XIHcQGBVzSNx8ZC3LHrUuitsmN">
+                    <ul class="errorlist nonfield"><li>Nombre de usuario o contraseña incorrectos.</li></ul>
+                
+                
+                  
+                  <p>
+                    <label for="id_username">Nombre de usuario:</label>
+                    <input type="text" name="username" value="joe" required="" id="id_username">
+                    
+                    
+                  </p>
+                
+                  
+                  <p>
+                    <label for="id_password">Contraseña:</label>
+                    <input type="password" name="password" required="" id="id_password">
+                    
+                    
+                      
+                    
+                  </p>
+                    <button id="funcionamiento" type="submit">Iniciar</button>
+                </form>
                 </div>
-                 <!-- /. ROW  -->
-                 <hr />
-               <div class="row">
-                <div class="col-md-12">
-                     <!-- End Form Elements -->
-                </div>
-        </div>
+            </div>   
+                            </div>
             <!-- cuerpo fin-->
+             <style>
+            .container {
+                width: 350px;
+                background-color: #fff;
+                padding: 20px;
+                border: 1px solid #ddd;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                margin: 50px auto;
+            }
+            
+            form {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            label {
+                margin-bottom: 10px;
+            }
+            
+            input[type="text"], input[type="password"] {
+                width: 100%;
+                height: 40px;
+                margin-bottom: 20px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            
+            #funcionamiento {
+                width: 100%;
+                height: 40px;
+                background-color: #4CAF50;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            
+            #funcionamiento:hover {
+                background-color: #3e8e41;
+            }
+            .errorlist.nonfield {
+                background-color: #f2dede;
+                border-color: #ebccd1;
+                color: #a94442;
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                list-style-type: none;
+            }
+            </style>
         </div>
     </div>
 </body>
