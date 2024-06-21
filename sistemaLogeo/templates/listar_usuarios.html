@@ -24,6 +24,7 @@
                             <th>Apellidos</th>
                             <th>Activo</th>
                             <th>Adminstrador</th>
+                            <th>Editar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -37,11 +38,12 @@
                             {% else %}
                             <th><i style="color: red;" class="fa fa-times-circle-o fa-2x"></i></th>
                             {% endif %}
-                            {% if usuario.is_staff and usuario.is_superuser %}
+                            {% if usuario.is_staff or usuario.is_superuser %}
                             <th><i style="color: green;" class="fa fa-check-circle-o fa-2x"></i></th>
                             {% else %}
                             <th><i style="color: red;" class="fa fa-times-circle-o fa-2x"></i></th>
                             {% endif %}
+                            <th><a href="{% url 'modificar_usuario' usuario.id %}" class="btn btn-primary">Modificar</a></th>
                         </tr>
                         {% endfor %}
                     </tbody>

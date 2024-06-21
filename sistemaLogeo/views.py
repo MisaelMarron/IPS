@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 
 def permisoElevados(user):
@@ -82,3 +82,18 @@ def crear_usuario(request):
         form = agregarUsuario()
 
     return render(request, 'crear_usuario.html', {'form': form})
+#modificar usuarios
+@login_required
+@user_passes_test(permisoElevados, login_url='/')
+def modificar_usuario(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    
+    if request.method == 'POST':
+        form = ModificarUsuario(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_usuarios')
+    else:
+        form = ModificarUsuario(instance=user)
+    
+    return render(request, 'modificar_usuario.html', {'form': form, 'user_cambio': user})
