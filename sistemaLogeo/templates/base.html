@@ -46,11 +46,13 @@
             <div class="sidebar-collapse">
                 <!-- Botones lado izquierdo-->
                 <ul class="nav" id="main-menu">
+                    {% if user.is_authenticated %}
                     <li>
                         <a href="{% url 'index'%}"><i class="fa fa-user fa-3x"></i> Perfil de {{ user.username }}</a>
                         <!-- Modo rojo-->
                         <!--<a class="active-menu" href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>-->
                     </li>
+                    {% if user.is_superuser or user.is_staff %}
                     <li>
                         <a href="{% url 'listar_usuarios'%}"><i class="fa fa-users fa-3x"></i> Registro de operarios</a>
                     </li>
@@ -72,6 +74,8 @@
                     <li>
                         <a href="{% url 'index'%}"><i class="fa fa-edit fa-3x"></i> Historial de actividades </a>
                     </li>
+                    {% endif %}
+                    {% endif %}
                 </ul>
             </div>
         </nav>

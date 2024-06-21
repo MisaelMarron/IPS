@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block content %}
+<div class="row">
+    <!-- Datos del usuario-->
+    <div class="col-md-12">
+        <h2>Panel de adminstracion </h2>
+        <h4>Bienvenido {{ user.username }} <a href="{% url 'cambiar_password'%}" class="btn square-btn-adjust">Cambiar
+                contraseña</a> </h4>
+        {% if alerta %}
+        <h4> <i style="color: red;" class="fa fa-info-circle fa-1x"></i> Recuerda cambiar la contraseña predeterminada</h4>
+        {% endif %}
+    </div>
+    <div class="col-md-9 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                trabajos
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Usuario </th>
+                                <th>Obra </th>
+                                <th>Labor </th>
+                                <th>Unidad </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for trabajo in trabajos %}
+                            <tr>
+                                <th>{{ trabajo.CodLab.CodUsu.username }}</th>
+                                <th>{{ trabajo.CodObra.NomObra }}</th>
+                                <th>{{ trabajo.CodLab.LabDes }}</th>
+                                <th>{{ trabajo.CodLab.CodUni.NomUni }}</th>
+                            <tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-9 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                trabajos actuales 
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Usuario </th>
+                                <th>Obra </th>
+                                <th>Labor </th>
+                                <th>Unidad </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for trabajo in trabajos_asignados %}
+                            <tr>
+                                <th>{{ trabajo.CodLab.CodUsu.username }}</th>
+                                <th>{{ trabajo.CodObra.NomObra }}</th>
+                                <th>{{ trabajo.CodLab.LabDes }}</th>
+                                <th>{{ trabajo.CodLab.CodUni.NomUni }}</th>
+                            <tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

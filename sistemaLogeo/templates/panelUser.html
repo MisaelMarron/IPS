@@ -6,21 +6,18 @@
 <div class="row">
     <!-- Datos del usuario-->
     <div class="col-md-12">
-        {% if user.is_superuser or user.is_staff %}
-        <h2>Panel de adminstracion </h2>
-        {% else %}
         <h2>Panel de usuario </h2>
-        {% endif %}
         <h4>Bienvenido {{ user.username }} <a href="{% url 'cambiar_password'%}" class="btn square-btn-adjust">Cambiar
                 contraseña</a> </h4>
         {% if alerta %}
-        <h4> <i style="color: red;" class="fa fa-info-circle fa-1x"></i> Cambie la contraseña predeterminada</h4>
+        <h4> <i style="color: red;" class="fa fa-info-circle fa-1x"></i> Recuerda cambiar la contraseña predeterminada
+        </h4>
         {% endif %}
     </div>
-    <div id="trabajos" class="col-md-9 col-sm-12 col-xs-12">
+    <div class="col-md-9 col-sm-12 col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Operarios
+                trabajos actuales 
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -34,13 +31,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for trabajo in trabajos %}
+                            {% for trabajo in trabajos_asignados %}
                             <tr>
                                 <th>{{ trabajo.CodLab.CodUsu.username }}</th>
                                 <th>{{ trabajo.CodObra.NomObra }}</th>
                                 <th>{{ trabajo.CodLab.LabDes }}</th>
                                 <th>{{ trabajo.CodLab.CodUni.NomUni }}</th>
-                                {% endfor %}
+                            <tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>

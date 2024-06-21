@@ -12,14 +12,20 @@ def permisoElevados(user):
 # Pagina de inicio 
 @login_required
 def index(request):
-    user = request.user
-    trabajos = TRABAJO.objects.all()
+    user = request.user   
     alert = False 
-    if not (user.is_superuser and user.is_staff):
+    labores_usuario = LABOR.objects.filter(CodUsu=user)
+    trabajos_asignados = TRABAJO.objects.filter(CodLab__in=labores_usuario)
+
+    if user.is_superuser and user.is_staff:
+        trabajos = TRABAJO.objects.all()
+        return render(request, 'panelAdmin.html', {'alerta': alert,'trabajos': trabajos})
+    else:
         alert = True
+        return render(request, 'panelUser.html', {'alerta': alert,'trabajos_asignados':trabajos_asignados})
+        
 
-
-    return render(request, 'index.html', {'alerta': alert,'trabajos': trabajos})
+    
 
 #iniciar seccion
 def login_views(request):
