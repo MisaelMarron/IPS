@@ -56,13 +56,14 @@ def cambiar_password(request):
 
     return render(request, 'cambiar_password.html', {'form': form})
 
-#listar usuarios, labores
+#listar usuarios, labores, trabajos
 @login_required
 @user_passes_test(permisoElevados, login_url='/')
 def listar_usuarios(request):
     usuarios = User.objects.all()
     labores = LABOR.objects.all()
-    return render(request, 'listar_usuarios.html', {'usuarios': usuarios,'labores': labores})
+    trabajos = TRABAJO.objects.all()
+    return render(request, 'listar_usuarios.html', {'usuarios': usuarios,'labores': labores,'trabajos': trabajos})
 
 #crear usuarios
 @login_required
@@ -176,7 +177,7 @@ def crear_labor(request):
         form = LaborForm()
 
     return render(request, 'labor/crear_labor.html', {'form': form})
-#modificar usuarios
+#modificar labor
 @login_required
 @user_passes_test(permisoElevados, login_url='/')
 def modificar_labor(request, labor_CodLab):
@@ -191,5 +192,34 @@ def modificar_labor(request, labor_CodLab):
         form = LaborForm(instance=labor)
     
     return render(request, 'labor/modificar_labor.html', {'form': form, 'labor': labor})
+#######################################################################################################
+#crear trabajo
+@login_required
+@user_passes_test(permisoElevados, login_url='/')
+def crear_trabajo(request):
+    if request.method == 'POST':
+        form = TrabajoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_usuarios')
+    else:
+        form = TrabajoForm()
+
+    return render(request, 'trabajo/crear_trabajo.html', {'form': form})
+#modificar trabajo
+@login_required
+@user_passes_test(permisoElevados, login_url='/')
+def modificar_trabajo(request, trabajo_CodTra):
+    trabajo = get_object_or_404(TRABAJO, CodTra=trabajo_CodTra)
+    
+    if request.method == 'POST':
+        form = TrabajoForm(request.POST, instance=trabajo)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_usuarios')
+    else:
+        form = TrabajoForm(instance=trabajo)
+    
+    return render(request, 'trabajo/modificar_trabajo.html', {'form': form, 'trabajo': trabajo})
 
 

@@ -108,7 +108,7 @@ class cambioUnidad(forms.ModelForm):
 ###################################################################################
 class LaborForm(forms.ModelForm):
     LabDes = forms.CharField(max_length=60,label='Descripcion de la labor')
-    
+
     class Meta:
         model = LABOR
         fields = ['CodUsu', 'CodUni', 'LabDes']
@@ -120,3 +120,27 @@ class LaborForm(forms.ModelForm):
         widgets = {
             'LabDes': forms.TextInput(attrs={'maxlength': 60}),
         }
+###################################################################################
+class TrabajoForm(forms.ModelForm):
+    FecIni = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label='Fecha de Inicio')
+    FecFin = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), label='Fecha de Fin')
+
+    class Meta:
+        model = TRABAJO
+        fields = ['CodLab', 'CodObra', 'FecIni', 'FecFin']
+        labels = {
+            'CodLab': 'Labor',
+            'CodObra': 'Obra',
+            'FecIni': 'Fecha de Inicio',
+            'FecFin': 'Fecha de Fin',
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'instance' in kwargs:
+            initial = {
+                'FecIni': kwargs['instance'].FecIni.strftime('%Y-%m-%d') if kwargs['instance'].FecIni else None,
+                'FecFin': kwargs['instance'].FecFin.strftime('%Y-%m-%d') if kwargs['instance'].FecFin else None,
+            }
+            self.initial.update(initial)
+

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Inscribir labor{% endblock %}
+{% block title %}Asignar trabajo{% endblock %}
 
 {% block nuevo %}
 {% load static %}
@@ -9,11 +9,11 @@
 
 {% block content %}
 <div class="container" style="width: 400px;">
-    <h2 class="text-center">Inscribir una labor</h2>
+    <h2 class="text-center">Asignar trabajo </h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button id="funcionamiento" type="submit">Inscribir</button>
+        <button id="funcionamiento" type="submit">Asignar</button>
     </form>
 </div>
 {% endblock %}

@@ -20,6 +20,9 @@ urlpatterns = [
     #labores
     path('crear_labor/', crear_labor, name='crear_labor'),
     path('modificar_labor/<int:labor_CodLab>/', modificar_labor, name='modificar_labor'),
+    #trabajadores
+    path('crear_trabajo/', crear_trabajo, name='crear_trabajo'),
+    path('modificar_trabajo/<int:trabajo_CodTra>/', modificar_trabajo, name='modificar_trabajo'),
 
 
 ]

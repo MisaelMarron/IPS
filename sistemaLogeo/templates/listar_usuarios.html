@@ -14,9 +14,11 @@
             Menu
             <a href="#usuario" class="btn square-btn-adjust">Usuarios</a>
             <a href="#labores" class="btn square-btn-adjust">Labores</a>
+            <a href="#trabajos" class="btn square-btn-adjust">Trabajos</a>
         </div>
     </div>
 </div>
+<!--Menu de usuario-->
 <div id="usuario" class="col-md-9 col-sm-12 col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
@@ -61,39 +63,79 @@
             </div>
         </div>
     </div>
-    <div id="labores" class="col-md-9 col-sm-12 col-xs-12">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Labor que ocupa el usuario
-                <a href="{% url 'crear_labor'%}" class="btn square-btn-adjust">Inscribir usuario a la maquina</a>
-            </div>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Usuario </th>
-                                <th>Unidad </th>
-                                <th>Descripcion</th>
-                                <th>Editar</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for labor in labores %}
-                            <tr>
-                                <th>{{ labor.CodUsu.username }}</th>
-                                <th>{{ labor.CodUni.NomUni }}</th>
-                                <th>{{ labor.LabDes }}</th>
-                                <th><a href="{% url 'modificar_labor' labor.CodLab %}" class="btn btn-primary">Modificar</a></th>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
+</div>
+<!--Menu de labores-->
+<div id="labores" class="col-md-9 col-sm-12 col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Labor que ocupa el usuario
+            <a href="{% url 'crear_labor'%}" class="btn square-btn-adjust">Inscribir usuario a la maquina</a>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Usuario </th>
+                            <th>Unidad </th>
+                            <th>Descripcion</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for labor in labores %}
+                        <tr>
+                            <th>{{ labor.CodUsu.username }}</th>
+                            <th>{{ labor.CodUni.NomUni }}</th>
+                            <th>{{ labor.LabDes }}</th>
+                            <th><a href="{% url 'modificar_labor' labor.CodLab %}" class="btn btn-primary">Modificar</a>
+                            </th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
-
-
-
     </div>
-    {% endblock %}
+</div>
+<!--Menu de trabajo-->
+<div id="trabajos" class="col-md-9 col-sm-12 col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Asignar trabajo
+            <a href="{% url 'crear_trabajo'%}" class="btn square-btn-adjust">Nuevo</a>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Usuario </th>
+                            <th>Obra </th>
+                            <th>Fecha inicio</th>
+                            <th>Fecha final</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trabajo in trabajos %}
+                        <tr>
+                            <th>{{ trabajo.CodLab.CodUsu.username }}</th>
+                            <th>{{ trabajo.CodObra.NomObra }}</th>
+                            <th>{{ trabajo.FecIni }}</th>
+                            <th>{{ trabajo.FecFin }}</th>
+                            <th><a href="{% url 'modificar_trabajo' trabajo.CodTra %}"
+                                class="btn btn-primary">Modificar</a></th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
