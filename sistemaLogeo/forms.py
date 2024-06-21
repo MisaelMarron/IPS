@@ -104,3 +104,19 @@ class cambioUnidad(forms.ModelForm):
     class Meta:
         model = UNIDAD
         fields = ['NomUni', 'ModUni', 'PreHor', 'HorUni']
+
+###################################################################################
+class LaborForm(forms.ModelForm):
+    LabDes = forms.CharField(max_length=60,label='Descripcion de la labor')
+    
+    class Meta:
+        model = LABOR
+        fields = ['CodUsu', 'CodUni', 'LabDes']
+        labels = {
+            'CodUsu': 'Usuario',
+            'CodUni': 'Unidad',
+            'LabDes': 'Descripción de la Labor'
+        }
+        widgets = {
+            'LabDes': forms.TextInput(attrs={'maxlength': 60}),
+        }

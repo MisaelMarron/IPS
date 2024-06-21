@@ -56,12 +56,13 @@ def cambiar_password(request):
 
     return render(request, 'cambiar_password.html', {'form': form})
 
-#listar usuarios
+#listar usuarios, labores
 @login_required
 @user_passes_test(permisoElevados, login_url='/')
 def listar_usuarios(request):
     usuarios = User.objects.all()
-    return render(request, 'listar_usuarios.html', {'usuarios': usuarios})
+    labores = LABOR.objects.all()
+    return render(request, 'listar_usuarios.html', {'usuarios': usuarios,'labores': labores})
 
 #crear usuarios
 @login_required
@@ -161,4 +162,34 @@ def modificar_unidad(request, unidad_CodUni):
         form = cambioUnidad(instance=unidad)
     
     return render(request, 'unidades/modificar_unidad.html', {'form': form, 'unidad': unidad})
+#######################################################################################################
+#crear labor
+@login_required
+@user_passes_test(permisoElevados, login_url='/')
+def crear_labor(request):
+    if request.method == 'POST':
+        form = LaborForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_usuarios')
+    else:
+        form = LaborForm()
+
+    return render(request, 'labor/crear_labor.html', {'form': form})
+#modificar usuarios
+@login_required
+@user_passes_test(permisoElevados, login_url='/')
+def modificar_labor(request, labor_CodLab):
+    labor = get_object_or_404(LABOR, CodLab=labor_CodLab)
+    
+    if request.method == 'POST':
+        form = LaborForm(request.POST, instance=labor)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_usuarios')
+    else:
+        form = LaborForm(instance=labor)
+    
+    return render(request, 'labor/modificar_labor.html', {'form': form, 'labor': labor})
+
 

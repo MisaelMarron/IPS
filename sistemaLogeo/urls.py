@@ -17,5 +17,9 @@ urlpatterns = [
     path('listar_unidades/', listar_unidades, name='listar_unidades'),
     path('crear_unidad/', crear_unidad, name='crear_unidad'),
     path('modificar_unidad/<str:unidad_CodUni>/', modificar_unidad, name='modificar_unidad'),
+    #labores
+    path('crear_labor/', crear_labor, name='crear_labor'),
+    path('modificar_labor/<int:labor_CodLab>/', modificar_labor, name='modificar_labor'),
+
 
 ]

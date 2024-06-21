@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Inscribir labor{% endblock %}
+
+{% block nuevo %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" style="width: 400px;">
+    <h2 class="text-center">Inscribir una labor</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button id="funcionamiento" type="submit">Crear</button>
+    </form>
+</div>
+{% endblock %}
