@@ -13,11 +13,13 @@ def permisoElevados(user):
 @login_required
 def index(request):
     user = request.user
+    trabajos = TRABAJO.objects.all()
     alert = False 
     if not (user.is_superuser and user.is_staff):
         alert = True
 
-    return render(request, 'index.html', {'alerta': alert})
+
+    return render(request, 'index.html', {'alerta': alert,'trabajos': trabajos})
 
 #iniciar seccion
 def login_views(request):

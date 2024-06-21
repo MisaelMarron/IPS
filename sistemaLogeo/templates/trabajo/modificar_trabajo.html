@@ -10,6 +10,7 @@
 {% block content %}
 <div class="container" style="width: 400px;">
     <h2 class="text-center">Modificacion de trabajo</h2>
+    <a href="{% url 'listar_usuarios'%}" class="btn square-btn-adjust"> Retroceder</a>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
