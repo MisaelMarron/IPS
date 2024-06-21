@@ -83,4 +83,24 @@ class formObra(forms.ModelForm):
     class Meta:
         model = OBRA
         fields = ['NomObra', 'NomCon', 'HorMin']
+###################################################################################
+class formUnidad(forms.ModelForm):
+    CodUni = forms.CharField(max_length=60,label='Codigo de unidad')
+    NomUni = forms.CharField(max_length=60,label='Nombre de la unidad')
+    ModUni = forms.CharField(max_length=60,label='Modelo de la unidad')
+    PreHor = forms.DecimalField(max_digits=10, decimal_places=2,label='Precio hora', min_value=0)
+    HorUni = forms.DecimalField(max_digits=10, decimal_places=2,label='Horometro', min_value=0)
 
+    class Meta:
+        model = UNIDAD
+        fields = ['CodUni', 'NomUni', 'ModUni', 'PreHor', 'HorUni']
+
+class cambioUnidad(forms.ModelForm):
+    NomUni = forms.CharField(max_length=60,label='Nombre de la unidad')
+    ModUni = forms.CharField(max_length=60,label='Modelo de la unidad')
+    PreHor = forms.DecimalField(max_digits=10, decimal_places=2,label='Precio hora', min_value=0)
+    HorUni = forms.DecimalField(max_digits=10, decimal_places=2,label='Horometro', min_value=0)
+
+    class Meta:
+        model = UNIDAD
+        fields = ['NomUni', 'ModUni', 'PreHor', 'HorUni']

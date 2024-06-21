@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Modificar obra{% endblock %}
+{% block title %}Modificar unidad{% endblock %}
 
 {% block nuevo %}
 {% load static %}
@@ -9,8 +9,8 @@
 
 {% block content %}
 <div class="container" style="width: 400px;">
-    <h2 class="text-center">Modificacion de obra</h2>
-    <a href="{% url 'listar_obras'%}" class="btn square-btn-adjust">Lista de obras</a>
+    <h2 class="text-center">Modificacion de unidad</h2>
+    <a href="{% url 'listar_unidades'%}" class="btn square-btn-adjust">Lista de unidades</a>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

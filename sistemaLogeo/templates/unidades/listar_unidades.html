@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Unidades{% endblock %}
+
+
+{% block content %}
+<div class="col-md-12">
+    <h2>Panel de adminstracion de Unidades</h2>
+    <h4>Bienvenido {{ user.username }} </h4>
+</div>
+<div class="col-md-9 col-sm-12 col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Obras 
+            <a href="{% url 'crear_unidad'%}" class="btn square-btn-adjust">Crear nueva unidad</a>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Codigo de unidad</th>
+                            <th>Nombre de unidad</th>
+                            <th>Modelo de unidad</th>
+                            <th>Precio hora</th>
+                            <th>Horometro de la unidad</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for unidad in unidades %}
+                        <tr>    
+                            <th>{{ unidad.CodUni }}</th>
+                            <th>{{ unidad.NomUni }}</th>
+                            <th>{{ unidad.ModUni }}</th>
+                            <th>{{ unidad.PreHor }}</th>
+                            <th>{{ unidad.HorUni }}</th>
+                            <th><a href="{% url 'modificar_unidad' unidad.CodUni %}" class="btn btn-primary">Modificar</a></th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

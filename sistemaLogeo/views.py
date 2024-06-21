@@ -13,16 +13,9 @@ def permisoElevados(user):
 @login_required
 def index(request):
     user = request.user
-    alert = False  # Inicializar alert en False por defecto
-
-    if user.is_authenticated:
-        first_name = user.first_name.strip().split()[0].lower() if user.first_name else ''
-        last_name = user.last_name.strip().split()[0].lower() if user.last_name else ''
-
-        if first_name and last_name:
-            password_to_check = f"{first_name}{last_name}"
-            if user.check_password(password_to_check):
-                alert = True
+    alert = False 
+    if not (user.is_superuser and user.is_staff):
+        alert = True
 
     return render(request, 'index.html', {'alerta': alert})
 
@@ -133,7 +126,39 @@ def modificar_obra(request, obra_CodObra):
         form = formObra(instance=obra)
     
     return render(request, 'obra/modificar_obra.html', {'form': form, 'obra': obra})
+#######################################################################################################
+#listar unidades
+@login_required
+@user_passes_test(permisoElevados, login_url='/')
+def listar_unidades(request):
+    unidades = UNIDAD.objects.all()
+    return render(request, 'unidades/listar_unidades.html', {'unidades': unidades})
+#crear obra
+@login_required
+@user_passes_test(permisoElevados, login_url='/')
+def crear_unidad(request):
+    if request.method == 'POST':
+        form = formUnidad(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_unidades')
+    else:
+        form = formUnidad()
 
-
-
+    return render(request, 'unidades/crear_unidad.html', {'form': form})
+#modificar unidad
+@login_required
+@user_passes_test(permisoElevados, login_url='/')
+def modificar_unidad(request, unidad_CodUni):
+    unidad = get_object_or_404(UNIDAD, CodUni=unidad_CodUni)
+    
+    if request.method == 'POST':
+        form = cambioUnidad(request.POST, instance=unidad)
+        if form.is_valid():
+            form.save()
+            return redirect('listar_unidades')
+    else:
+        form = cambioUnidad(instance=unidad)
+    
+    return render(request, 'unidades/modificar_unidad.html', {'form': form, 'unidad': unidad})
 
