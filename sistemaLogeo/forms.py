@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import *
 
 #logear usuario
 class LoginForm(forms.Form):
@@ -73,6 +74,13 @@ class ModificarUsuario(forms.ModelForm):
             user.save()
 
         return user 
+###################################################################################
+class formObra(forms.ModelForm):
+    NomObra = forms.CharField(max_length=60,label='Nombre de la obra')
+    NomCon = forms.CharField(max_length=60,label="Nombre del contratista")
+    HorMin = forms.IntegerField(label="Horas minimas", min_value=1)
 
-
+    class Meta:
+        model = OBRA
+        fields = ['NomObra', 'NomCon', 'HorMin']
 

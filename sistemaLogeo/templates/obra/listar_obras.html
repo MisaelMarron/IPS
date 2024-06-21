@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Obras{% endblock %}
+
+
+{% block content %}
+<div class="col-md-12">
+    <h2>Panel de adminstracion de Obras</h2>
+    <h4>Bienvenido {{ user.username }} </h4>
+</div>
+<div class="col-md-9 col-sm-12 col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Obras 
+            <a href="{% url 'crear_obra'%}" class="btn square-btn-adjust">Crear nueva obra</a>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre de obra</th>
+                            <th>Nombre de contratista</th>
+                            <th>Horas minimas </th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obra in obras %}
+                        <tr>
+                            <th>{{ obra.NomObra }}</th>
+                            <th>{{ obra.NomCon }}</th>
+                            <th>{{ obra.HorMin }}</th>
+                            <th><a href="{% url 'modificar_obra' obra.CodObra %}" class="btn btn-primary">Modificar</a></th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Nuevo usuario{% endblock %}
+{% block title %}Nueva obra{% endblock %}
 
 {% block nuevo %}
 {% load static %}
@@ -9,9 +9,8 @@
 
 {% block content %}
 <div class="container" style="width: 400px;">
-    <h2 class="text-center">Crear usuario</h2>
-    <p style="font-size: 14px;"><i style="color: green;" class="fa fa-info-circle fa-1x"></i>Se creara un usuario disponible y la contraseña sera el primer nombre junto a el primer apellido</p>
-    <a href="{% url 'listar_usuarios'%}" class="btn square-btn-adjust">Lista de usuarios</a>
+    <h2 class="text-center">Nueva Obra</h2>
+    <a href="{% url 'listar_obras'%}" class="btn square-btn-adjust">Lista de obras</a>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

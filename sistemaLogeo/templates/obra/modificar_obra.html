@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Modificar usuario{% endblock %}
+{% block title %}Modificar obra{% endblock %}
 
 {% block nuevo %}
 {% load static %}
@@ -9,7 +9,7 @@
 
 {% block content %}
 <div class="container" style="width: 400px;">
-    <h2 class="text-center">Modificacion de perfil</h2>
+    <h2 class="text-center">Modificacion de obra</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
