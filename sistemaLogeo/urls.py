@@ -23,6 +23,8 @@ urlpatterns = [
     #trabajadores
     path('crear_trabajo/', crear_trabajo, name='crear_trabajo'),
     path('modificar_trabajo/<int:trabajo_CodTra>/', modificar_trabajo, name='modificar_trabajo'),
-
+    #regitro
+    path('listar_registros/', listar_registros, name='listar_registros'),
+    path('crear_registro/<int:trabajo_CodTra>/', crear_registro, name='crear_registro'),
 
 ]

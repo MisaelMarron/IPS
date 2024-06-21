@@ -143,4 +143,38 @@ class TrabajoForm(forms.ModelForm):
                 'FecFin': kwargs['instance'].FecFin.strftime('%Y-%m-%d') if kwargs['instance'].FecFin else None,
             }
             self.initial.update(initial)
+###################################################################################
+class RegistroForm(forms.ModelForm):
+    class Meta:
+        model = REGISTRO
+        fields = ['FecTra', 'Turno', 'EstMaq', 'HorFin']
+        labels = {
+            'FecTra': 'Fecha del Registro',
+            'Turno': 'Turno',
+            'EstMaq': 'Estado de la Maquina',
+            'HorFin': 'Horometro Final',
+        }
+        widgets = {
+            'FecTra': forms.DateInput(attrs={'type': 'date'}),
+            'HorFin': forms.NumberInput(attrs={'step': '0.01'}),
+        }
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if 'instance' in kwargs:
+            initial = {
+                'FecTra': kwargs['instance'].FecTra.strftime('%Y-%m-%d') if kwargs['instance'].FecTra else None,
+            }
+            self.initial.update(initial)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        fec_tra = cleaned_data.get('FecTra')
+        cod_tra = self.instance.CodTra if self.instance else None
+        
+        if fec_tra and cod_tra:
+            existing_count = REGISTRO.objects.filter(FecTra=fec_tra, CodTra=cod_tra).count()
+            if existing_count > 0:
+                self.add_error('FecTra', 'Ya existe un registro para esta fecha y código de trabajo.')
+        
+        return cleaned_data

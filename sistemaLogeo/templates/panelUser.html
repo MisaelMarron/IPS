@@ -17,26 +17,26 @@
     <div class="col-md-9 col-sm-12 col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                trabajos actuales 
+                Trabajos mios
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th>Usuario </th>
                                 <th>Obra </th>
                                 <th>Labor </th>
                                 <th>Unidad </th>
+                                <th>Nuevo registro </th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for trabajo in trabajos_asignados %}
                             <tr>
-                                <th>{{ trabajo.CodLab.CodUsu.username }}</th>
                                 <th>{{ trabajo.CodObra.NomObra }}</th>
                                 <th>{{ trabajo.CodLab.LabDes }}</th>
                                 <th>{{ trabajo.CodLab.CodUni.NomUni }}</th>
+                                <th><a href="{% url 'crear_registro' trabajo.CodTra %}" class="btn btn-primary">Nuevo</a></th>
                             <tr>
                             {% endfor %}
                         </tbody>

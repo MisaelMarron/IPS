@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Colocar registro{% endblock %}
+
+{% block nuevo %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container" style="width: 400px;">
+    <h2 class="text-center">Colocar registro </h2>
+    <p style="font-size: 14px;"><i style="color: red;" class="fa fa-info-circle fa-1x"></i>Una vez puesto el registro no se pondra cambiar</p>
+    <a href="{% url 'listar_registros'%}" class="btn square-btn-adjust"> Retroceder</a>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button id="funcionamiento" type="submit">Asignar</button>
+    </form>
+</div>
+{% endblock %}

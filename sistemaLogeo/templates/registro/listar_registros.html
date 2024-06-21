@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}listar registro{% endblock %}
+
+
+{% block content %}
+<div class="col-md-12">
+    <h2>Panel de registro</h2>
+    <h4>Bienvenido {{ user.username }} </h4>
+</div>
+<div class="col-md-9 col-sm-12 col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Registro en la obra 
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Nombre de obra</th>  
+                            <th>Nombre de la unidad</th>
+                            <th>Turno</th>
+                            <th>Estado de maquina</th>
+                            <th>Horometro inicial</th>
+                            <th>Horometro final</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for registro in registros_asignados %}
+                        <tr>
+                            <th>{{ registro.FecTra }}</th>
+                            <th>{{ registro.CodTra.CodObra.NomObra }}</th>  
+                            <th>{{ registro.CodTra.CodLab.CodUni.NomUni }}</th>
+                            <th>{{ registro.Turno }}</th>
+                            <th>{{ registro.EstMaq }}</th>
+                            <th>{{ registro.HorIni }}</th>
+                            <th>{{ registro.HorFin }}</th>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

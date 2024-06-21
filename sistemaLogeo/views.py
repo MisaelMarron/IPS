@@ -19,13 +19,11 @@ def index(request):
 
     if user.is_superuser and user.is_staff:
         trabajos = TRABAJO.objects.all()
-        return render(request, 'panelAdmin.html', {'alerta': alert,'trabajos': trabajos})
+        return render(request, 'panelAdmin.html', {'alerta': alert,'trabajos': trabajos,'trabajos_asignados':trabajos_asignados})
     else:
         alert = True
         return render(request, 'panelUser.html', {'alerta': alert,'trabajos_asignados':trabajos_asignados})
         
-
-    
 
 #iniciar seccion
 def login_views(request):
@@ -229,5 +227,35 @@ def modificar_trabajo(request, trabajo_CodTra):
         form = TrabajoForm(instance=trabajo)
     
     return render(request, 'trabajo/modificar_trabajo.html', {'form': form, 'trabajo': trabajo})
+#######################################################################################################
+# listar registro
+@login_required
+def listar_registros(request):
+    user = request.user   
+    labores_usuario = LABOR.objects.filter(CodUsu=user)
+    trabajos_asignados = TRABAJO.objects.filter(CodLab__in=labores_usuario)
+    registros_asignados = REGISTRO.objects.filter(CodTra__in=trabajos_asignados).order_by('FecTra')
+    return render(request, 'registro/listar_registros.html', {'registros_asignados':registros_asignados})
+# crear registro
+@login_required
+def crear_registro(request, trabajo_CodTra):
+    user = request.user
+    
+    # Obtener el trabajo si existe y pertenece al usuario
+    trabajo = get_object_or_404(TRABAJO, CodTra=trabajo_CodTra, CodLab__CodUsu=user)
+    
+    if request.method == 'POST' and trabajo.CodLab.CodUsu.username == user.username:
+        form = RegistroForm(request.POST)
+        form.instance.CodTra = trabajo 
+        form.instance.HorIni = trabajo.CodLab.CodUni.HorUni
+        if form.is_valid():
+            trabajo.CodLab.CodUni.HorUni = form.instance.HorFin
+            form.save()
+            unidad = get_object_or_404(UNIDAD, CodUni=trabajo.CodLab.CodUni.CodUni)
+            unidad.HorUni = form.instance.HorFin
+            unidad.save()
+            return redirect('listar_registros') 
+    else:
+        form = RegistroForm()
 
-
+    return render(request, 'registro/crear_registro.html', {'form': form})
