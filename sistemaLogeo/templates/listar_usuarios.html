@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Usuarios{% endblock %}
+
+
+{% block content %}
+<div class="col-md-12">
+    <h2>Panel de adminstracion de Operarios</h2>
+    <h4>Bienvenido {{ user.username }} </h4>
+</div>
+<div class="col-md-9 col-sm-12 col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Usuario en sistema <a href="{% url 'crear_usuario'%}" class="btn square-btn-adjust">Crear nuevo
+                usuario</a>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Activo</th>
+                            <th>Adminstrador</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for usuario in usuarios %}
+                        <tr>
+                            <th>{{ usuario.username }}</th>
+                            <th>{{ usuario.first_name }}</th>
+                            <th>{{ usuario.last_name }}</th>
+                            {% if usuario.is_active %}
+                            <th><i style="color: green;" class="fa fa-check-circle-o fa-2x"></i></th>
+                            {% else %}
+                            <th><i style="color: red;" class="fa fa-times-circle-o fa-2x"></i></th>
+                            {% endif %}
+                            {% if usuario.is_staff and usuario.is_superuser %}
+                            <th><i style="color: green;" class="fa fa-check-circle-o fa-2x"></i></th>
+                            {% else %}
+                            <th><i style="color: red;" class="fa fa-times-circle-o fa-2x"></i></th>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

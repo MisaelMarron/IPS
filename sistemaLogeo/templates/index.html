@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}Página de inicio{% endblock %}
+{% block title %}Perfil{% endblock %}
 
 {% block content %}
 <div class="row">
@@ -12,6 +12,9 @@
         <h2>Panel de usuario </h2>
         {% endif %}
         <h4>Bienvenido {{ user.username }} <a href="{% url 'cambiar_password'%}" class="btn square-btn-adjust">Cambiar contraseña</a> </h4>
+        {% if alerta %}
+        <h4> <i style="color: red;" class="fa fa-info-circle fa-1x"></i> Cambie la contraseña predeterminada</h4>
+        {% endif %}
     </div>  
     <div class="col-md-9 col-sm-12 col-xs-12">
 
