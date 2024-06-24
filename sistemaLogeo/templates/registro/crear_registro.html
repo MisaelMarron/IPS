@@ -10,8 +10,9 @@
 {% block content %}
 <div class="container" style="width: 400px;">
     <h2 class="text-center">Colocar registro </h2>
+    <h5>De la maquina {{maquina}}</h5>
     <p style="font-size: 14px;"><i style="color: red;" class="fa fa-info-circle fa-1x"></i>Una vez puesto el registro no se pondra cambiar</p>
-    <a href="{% url 'listar_registros'%}" class="btn square-btn-adjust"> Retroceder</a>
+    <a href="{% url 'index'%}" class="btn square-btn-adjust"> Retroceder</a>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

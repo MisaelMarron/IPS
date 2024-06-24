@@ -14,7 +14,7 @@
         </h4>
         {% endif %}
     </div>
-    <div class="col-md-9 col-sm-12 col-xs-12">
+    <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="panel panel-default">
             <div class="panel-heading">
                 Trabajos mios
@@ -27,6 +27,8 @@
                                 <th>Obra </th>
                                 <th>Labor </th>
                                 <th>Unidad </th>
+                                <th>Inicio </th>
+                                <th>Fin </th>
                                 <th>Nuevo registro </th>
                             </tr>
                         </thead>
@@ -36,6 +38,8 @@
                                 <th>{{ trabajo.CodObra.NomObra }}</th>
                                 <th>{{ trabajo.CodLab.LabDes }}</th>
                                 <th>{{ trabajo.CodLab.CodUni.NomUni }}</th>
+                                <th>{{ trabajo.FecIni }}</th>
+                                <th>{{ trabajo.FecFin }}</th>
                                 <th><a href="{% url 'crear_registro' trabajo.CodTra %}" class="btn btn-primary">Nuevo</a></th>
                             <tr>
                             {% endfor %}

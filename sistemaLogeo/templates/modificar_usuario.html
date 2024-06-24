@@ -10,6 +10,9 @@
 {% block content %}
 <div class="container" style="width: 400px;">
     <h2 class="text-center">Modificacion de perfil</h2>
+    {% if mismo %}
+    <p style="font-size: 14px;"><i style="color: red;" class="fa fa-info-circle fa-1x"></i>No se puede desactivar asi mismo, tenga mucho cuidado</p>
+    {% endif %}
     <a href="{% url 'listar_usuarios'%}" class="btn square-btn-adjust">Lista de usuarios</a>
     <form method="post">
         {% csrf_token %}

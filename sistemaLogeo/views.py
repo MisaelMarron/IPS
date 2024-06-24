@@ -88,17 +88,18 @@ def crear_usuario(request):
 @login_required
 @user_passes_test(permisoElevados, login_url='/')
 def modificar_usuario(request, user_id):
-    user = get_object_or_404(User, id=user_id)
-    
+    user = get_object_or_404(User, id=user_id)  
+    mismo = user_id == request.user.id
     if request.method == 'POST':
         form = ModificarUsuario(request.POST, instance=user)
         if form.is_valid():
-            form.save()
+            if (not form.instance.is_active) or (form.instance.id != request.user.id) :
+                form.save()
             return redirect('listar_usuarios')
     else:
         form = ModificarUsuario(instance=user)
     
-    return render(request, 'modificar_usuario.html', {'form': form, 'user_cambio': user})
+    return render(request, 'modificar_usuario.html', {'form': form, 'user_cambio': user, 'mismo':mismo})
 #######################################################################################################
 #listar obras
 @login_required
@@ -243,7 +244,7 @@ def crear_registro(request, trabajo_CodTra):
     
     # Obtener el trabajo si existe y pertenece al usuario
     trabajo = get_object_or_404(TRABAJO, CodTra=trabajo_CodTra, CodLab__CodUsu=user)
-    
+    maquina = trabajo.CodLab.CodUni.NomUni
     if request.method == 'POST' and trabajo.CodLab.CodUsu.username == user.username:
         form = RegistroForm(request.POST)
         form.instance.CodTra = trabajo 
@@ -258,4 +259,29 @@ def crear_registro(request, trabajo_CodTra):
     else:
         form = RegistroForm()
 
-    return render(request, 'registro/crear_registro.html', {'form': form})
+    return render(request, 'registro/crear_registro.html', {'form': form,"maquina":maquina})
+#######################################################################################################
+#calcular automatizado de horas trabajados
+@login_required
+@user_passes_test(permisoElevados, login_url='/')
+def calculo_horas(request):
+    usuarios = User.objects.all()
+    if request.method == 'POST':
+        id_usuario = request.POST.get('id_usuario', 'nada')
+        if id_usuario != "nada":
+            user = get_object_or_404(User, id=id_usuario)
+            labores_usuario = LABOR.objects.filter(CodUsu=user)
+            trabajos_asignados = TRABAJO.objects.filter(CodLab__in=labores_usuario)
+            registros_asignados = REGISTRO.objects.filter(CodTra__in=trabajos_asignados).order_by('FecTra')
+            total = 0
+            for registro in registros_asignados:
+                registro.horas_totales = registro.HorFin - registro.HorIni
+                total += registro.horas_totales
+            return render(request, 'herramientas/calculo_horas_usuario.html',{'registros':registros_asignados,'total':total,'usuario':user})
+            
+    return render(request, 'herramientas/calculo_horas.html',{'usuarios':usuarios})
+
+#generar reporte detallados 
+def reportes_detallados(request):
+    print("Generar reportes detallados")
+    return redirect('index')

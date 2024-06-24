@@ -26,5 +26,8 @@ urlpatterns = [
     #regitro
     path('listar_registros/', listar_registros, name='listar_registros'),
     path('crear_registro/<int:trabajo_CodTra>/', crear_registro, name='crear_registro'),
+    #calculo
+    path('calculo_horas/', calculo_horas, name='calculo_horas'),
+    path('reportes_detallados/', reportes_detallados, name='reportes_detallados'),
 
 ]

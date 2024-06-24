@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Página de inicio{% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+    <h2>Calculo de horas </h2>
+    <h4>Usuario: {{usuario.username}}</h4>
+</div>
+<!--Menu de trabajo-->
+<div id="trabajos" class="col-md-12 col-sm-12 col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Calculo del usuario {{usuario.username}}
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Fecha de trabajo</th>
+                            <th>Usuario </th>
+                            <th>Obra </th>
+                            <th>Unidades</th>
+                            <th>Horometro Inicio</th>
+                            <th>Horometro Final</th>
+                            <th>Horas totales</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for registro in registros %}
+                        <tr>
+                            <th>{{ registro.FecTra }}</th>
+                            <th>{{ registro.CodTra.CodLab.CodUsu.username }}</th>
+                            <th>{{ registro.CodTra.CodObra.NomObra }}</th>
+                            <th>{{ registro.CodTra.CodLab.CodUni.NomUni }}</th>
+                            <th>{{ registro.HorIni }}</th>
+                            <th>{{ registro.HorFin }}</th>
+                            <th>{{ registro.horas_totales }}</th>
+                        </tr>
+                        {% endfor %}
+                        <tr>
+                            <th colspan="6" class="text-center">Horas totales</th>
+                            <th>{{total}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

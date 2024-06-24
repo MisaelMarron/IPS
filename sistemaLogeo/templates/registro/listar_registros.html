@@ -8,10 +8,11 @@
     <h2>Panel de registro</h2>
     <h4>Bienvenido {{ user.username }} </h4>
 </div>
-<div class="col-md-9 col-sm-12 col-xs-12">
+<div class="col-md-12 col-sm-12 col-xs-12">
     <div class="panel panel-default">
         <div class="panel-heading">
             Registro en la obra 
+            <a href="{% url 'index'%}" class="btn square-btn-adjust">Crear un nuevo registro</a>
         </div>
         <div class="panel-body">
             <div class="table-responsive">
