@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
 from .forms import *
 from .models import *
 
@@ -35,9 +36,10 @@ def login_views(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                messages.success(request, 'Se inicio correctamente la sesion')
                 return redirect('index') 
             else:
-                form.add_error(None, 'Nombre de usuario o contraseña incorrectos.')
+                messages.error(request, 'Nombre de usuario o contraseña incorrectos.')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
@@ -46,6 +48,7 @@ def login_views(request):
 @login_required
 def logout_views(request):
     logout(request)
+    messages.success(request, 'Se cerro correctamente la sesion')
     return redirect('login')
 
 #Cambiar contraseñas
@@ -56,6 +59,7 @@ def cambiar_password(request):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user) 
+            messages.success(request, 'Se cambio la contraseña correctamente')
             return redirect('index')
     else:
         form = PasswordChangeForm(request.user)
@@ -79,6 +83,9 @@ def crear_usuario(request):
         form = agregarUsuario(request.POST)
         if form.is_valid():
             form.save()
+            user = form.save()
+            messages.success(request, f'Se creó un nuevo usuario "{user.username}"')
+            messages.success(request, f'Con contraseña "{user.first_name.split()[0].lower()}{user.last_name.split()[0].lower()}"')
             return redirect('listar_usuarios')
     else:
         form = agregarUsuario()
@@ -93,8 +100,11 @@ def modificar_usuario(request, user_id):
     if request.method == 'POST':
         form = ModificarUsuario(request.POST, instance=user)
         if form.is_valid():
-            if (not form.instance.is_active) or (form.instance.id != request.user.id) :
+            if (form.instance.is_active and form.instance.is_superuser) or (form.instance.id != request.user.id):
+                messages.success(request, f'Modifico correctamente "{form.instance.username}"')
                 form.save()
+            else:
+                messages.warning(request, 'No se puede desactivar/ni quitar administrador a usted mismo')
             return redirect('listar_usuarios')
     else:
         form = ModificarUsuario(instance=user)
@@ -115,6 +125,7 @@ def crear_obra(request):
         form = formObra(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Se agrego una nueva obra')
             return redirect('listar_obras')
     else:
         form = formObra()
@@ -130,6 +141,7 @@ def modificar_obra(request, obra_CodObra):
         form = formObra(request.POST, instance=obra)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Se modifico correctamente')
             return redirect('listar_obras')
     else:
         form = formObra(instance=obra)
@@ -149,6 +161,7 @@ def crear_unidad(request):
     if request.method == 'POST':
         form = formUnidad(request.POST)
         if form.is_valid():
+            messages.success(request, 'Se agrego un nueva unidad')
             form.save()
             return redirect('listar_unidades')
     else:
@@ -164,6 +177,7 @@ def modificar_unidad(request, unidad_CodUni):
     if request.method == 'POST':
         form = cambioUnidad(request.POST, instance=unidad)
         if form.is_valid():
+            messages.success(request, 'Se modifico correctamente')
             form.save()
             return redirect('listar_unidades')
     else:
@@ -178,6 +192,7 @@ def crear_labor(request):
     if request.method == 'POST':
         form = LaborForm(request.POST)
         if form.is_valid():
+            messages.success(request, 'Se inscribio en nueva labor')
             form.save()
             return redirect('listar_usuarios')
     else:
@@ -193,6 +208,7 @@ def modificar_labor(request, labor_CodLab):
     if request.method == 'POST':
         form = LaborForm(request.POST, instance=labor)
         if form.is_valid():
+            messages.success(request, 'Se modifico correctamente')
             form.save()
             return redirect('listar_usuarios')
     else:
@@ -208,6 +224,7 @@ def crear_trabajo(request):
         form = TrabajoForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Se agrego correctamente')
             return redirect('listar_usuarios')
     else:
         form = TrabajoForm()
@@ -223,6 +240,7 @@ def modificar_trabajo(request, trabajo_CodTra):
         form = TrabajoForm(request.POST, instance=trabajo)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Se modifico correctamente')
             return redirect('listar_usuarios')
     else:
         form = TrabajoForm(instance=trabajo)
@@ -255,6 +273,7 @@ def crear_registro(request, trabajo_CodTra):
             unidad = get_object_or_404(UNIDAD, CodUni=trabajo.CodLab.CodUni.CodUni)
             unidad.HorUni = form.instance.HorFin
             unidad.save()
+            messages.success(request, 'Se agrego correctamente')
             return redirect('listar_registros') 
     else:
         form = RegistroForm()
@@ -282,6 +301,8 @@ def calculo_horas(request):
     return render(request, 'herramientas/calculo_horas.html',{'usuarios':usuarios})
 
 #generar reporte detallados 
+#Reporte de maquina de tiempo a tiempo
+#liquidacion a trabajador por todo el tiempo
 def reportes_detallados(request):
-    print("Generar reportes detallados")
-    return redirect('index')
+
+    return render(request, 'herramientas/calculo_horas.html')

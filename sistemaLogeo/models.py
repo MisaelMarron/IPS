@@ -128,7 +128,7 @@ class REGISTRO(models.Model):
     CodReg = models.AutoField(primary_key=True)
     CodTra = models.ForeignKey(TRABAJO, on_delete=models.CASCADE, db_column='CodTra')
     FecTra = models.DateField()
-    Turno = models.CharField(max_length=5,)
+    Turno = models.CharField(max_length=5)
     EstMaq = models.CharField(max_length=10)
     HorIni = models.DecimalField(max_digits=10, decimal_places=2,) 
     HorFin = models.DecimalField(max_digits=10, decimal_places=2)

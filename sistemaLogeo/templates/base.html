@@ -32,12 +32,12 @@
                 </button>
                 <a class="navbar-brand" href="{% url 'index'%}">Kallpa Comaser</a>
             </div>
-            <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;"> 
+            <div style="color: white; padding: 15px 50px 5px 50px; float: right; font-size: 16px;">
                 <!-- Botones superior-->
                 {% if user.is_authenticated %}
-                <a href="{% url 'logout'%}" class="btn btn-danger square-btn-adjust">Cerrar sesion</a> 
+                <a href="{% url 'logout'%}" class="btn btn-danger square-btn-adjust">Cerrar sesion</a>
                 {% else %}
-                <a href="{% url 'login'%}" class="btn btn-danger square-btn-adjust">Iniciar sesion</a> 
+                <a href="{% url 'login'%}" class="btn btn-danger square-btn-adjust">Iniciar sesion</a>
                 {% endif %}
             </div>
         </nav>
@@ -53,7 +53,8 @@
                         <!--<a class="active-menu" href="index.html"><i class="fa fa-dashboard fa-3x"></i> Dashboard</a>-->
                     </li>
                     <li>
-                        <a href="{% url 'listar_registros'%}"><i class="fa fa-edit fa-3x"></i> Registro de actividades </a>
+                        <a href="{% url 'listar_registros'%}"><i class="fa fa-edit fa-3x"></i> Registro de actividades
+                        </a>
                     </li>
                     {% if user.is_superuser or user.is_staff %}
                     <li>
@@ -66,10 +67,12 @@
                         <a href="{% url 'listar_unidades'%}"><i class="fa fa-truck fa-3x"></i>Registro de unidades </a>
                     </li>
                     <li>
-                        <a href="{% url 'calculo_horas'%}"><i class="fa fa-qrcode fa-3x"></i> Cálculo de horas trabajadas</a>
+                        <a href="{% url 'calculo_horas'%}"><i class="fa fa-qrcode fa-3x"></i> Cálculo de horas
+                            trabajadas</a>
                     </li>
                     <li>
-                        <a href="{% url 'reportes_detallados' %}"><i class="fa fa-bar-chart-o fa-3x"></i> Generación de reportes</a>
+                        <a href="{% url 'reportes_detallados' %}"><i class="fa fa-bar-chart-o fa-3x"></i> Generación de
+                            reportes</a>
                     </li>
                     {% endif %}
                     {% endif %}
@@ -78,12 +81,24 @@
         </nav>
         <!-- div cuerpo -->
         <div id="page-wrapper">
-            <!-- cuerpo inicio-->
-            <div id="page-inner">
-                {% block content %}{% endblock %}
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == "error" %}
+            <div class="alert alert-danger" onclick="this.classList.add('hidden')">
+                {% else %}
+                <div class="alert alert-{{ message.tags }}" onclick="this.classList.add('hidden')">
+                    {% endif %}
+                    {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+                <!-- cuerpo inicio-->
+                <div id="page-inner">
+                    {% block content %}{% endblock %}
+                </div>
+                <!-- cuerpo fin-->
             </div>
-            <!-- cuerpo fin-->
         </div>
-    </div>
 </body>
+
 </html>
