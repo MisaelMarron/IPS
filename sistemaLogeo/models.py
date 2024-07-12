@@ -76,7 +76,7 @@ class UNIDAD(models.Model):
 class LABOR(models.Model):
     CodLab = models.AutoField(primary_key=True)
     CodUsu = models.ForeignKey(User, on_delete=models.CASCADE, db_column='CodUsu') 
-    CodUni = models.ForeignKey(UNIDAD, on_delete=models.CASCADE, db_column='CodUni')
+    CodUni = models.ForeignKey(UNIDAD, related_name="labores", on_delete=models.CASCADE, db_column='CodUni')
     LabDes = models.CharField(max_length=60)
 
     class Meta:
@@ -91,7 +91,7 @@ class LABOR(models.Model):
 class TRABAJO(models.Model):
     CodTra = models.AutoField(primary_key=True)
     CodLab = models.ForeignKey(LABOR, on_delete=models.CASCADE, db_column='CodLab')
-    CodObra = models.ForeignKey(OBRA, on_delete=models.CASCADE, db_column='CodObra')
+    CodObra = models.ForeignKey(OBRA, related_name='trabajos', on_delete=models.CASCADE, db_column='CodObra')
     FecIni = models.DateField()
     FecFin = models.DateField()
 
