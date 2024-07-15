@@ -4,6 +4,10 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.http import HttpResponse
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.lib.units import inch
 from .forms import *
 from .models import *
 
@@ -306,3 +310,48 @@ def calculo_horas(request):
 def reportes_detallados(request):
 
     return render(request, 'herramientas/calculo_horas.html')
+
+def export_pdf(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="operarios.pdf"'
+
+    p = canvas.Canvas(response, pagesize=letter)
+    width, height = letter
+
+    # Título del PDF
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(100, height - 50, "Lista de Operarios")
+
+    # Coordenadas iniciales
+    x = 50
+    y = height - 100
+
+    # Ancho de las columnas
+    col_widths = [100, 100, 100, 50, 100]
+
+    # Dibujar encabezados de la tabla
+    headers = ["Usuario", "Nombres", "Apellidos", "Activo", "Administrador"]
+    for i, header in enumerate(headers):
+        p.drawString(x + sum(col_widths[:i]), y, header)
+
+    # Dibujar líneas de los encabezados
+    y -= 40
+    p.line(x, y + 15, x + sum(col_widths), y + 15)
+
+    # Dibujar datos de la tabla
+    usuarios = User.objects.all()
+    for usuario in usuarios:
+        p.drawString(x + sum(col_widths[:0]), y - 15, usuario.username)
+        p.drawString(x + sum(col_widths[:1]), y - 15, usuario.first_name)
+        p.drawString(x + sum(col_widths[:2]), y - 15, usuario.last_name)
+        p.drawString(x + sum(col_widths[:3]), y - 15, "Sí" if usuario.is_active else "No")
+        p.drawString(x + sum(col_widths[:4]), y - 15, "Sí" if usuario.is_staff or usuario.is_superuser else "No")
+
+        # Dibujar líneas de la tabla
+        y -= 40
+        p.line(x, y + 15, x + sum(col_widths), y + 15)
+        
+    p.showPage()
+    p.save()
+    
+    return response

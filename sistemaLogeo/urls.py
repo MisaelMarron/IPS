@@ -29,5 +29,5 @@ urlpatterns = [
     #calculo
     path('calculo_horas/', calculo_horas, name='calculo_horas'),
     path('reportes_detallados/', reportes_detallados, name='reportes_detallados'),
-
+    path('export/pdf/', export_pdf, name='export_pdf'),
 ]
