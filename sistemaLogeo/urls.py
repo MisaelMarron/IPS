@@ -28,6 +28,7 @@ urlpatterns = [
     path('crear_registro/<int:trabajo_CodTra>/', crear_registro, name='crear_registro'),
     #calculo
     path('calculo_horas/', calculo_horas, name='calculo_horas'),
+    #reportes
     path('reportes_detallados/', reportes_detallados, name='reportes_detallados'),
-
+    path('unidades_por_obra/<int:obra_CodObra>/', unidades_por_obra, name='unidades_por_obra')
 ]

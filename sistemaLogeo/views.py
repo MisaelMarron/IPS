@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from .forms import *
@@ -304,5 +305,13 @@ def calculo_horas(request):
 #Reporte de maquina de tiempo a tiempo
 #liquidacion a trabajador por todo el tiempo
 def reportes_detallados(request):
+    obras = OBRA.objects.all()
+    contratistas = obras.values_list('NomCon', flat=True).distinct()
+    print(contratistas)
+    return render(request, 'reportes/listar_reportes.html', {'obras': obras, 'contratistas': contratistas})
 
-    return render(request, 'herramientas/calculo_horas.html')
+def unidades_por_obra(_, obra_CodObra):
+    obra = get_object_or_404(OBRA, CodObra=obra_CodObra)
+    unidades = UNIDAD.objects.filter(labores__trabajo__CodObra=obra).distinct()
+    data = [{'id': unidad.CodUni, 'nombre': unidad.NomUni} for unidad in unidades]
+    return JsonResponse(data, safe=False)
