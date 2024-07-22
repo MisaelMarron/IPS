@@ -10,6 +10,8 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.units import inch
 from .forms import *
 from .models import *
+import openpyxl
+from openpyxl import Workbook
 
 def permisoElevados(user):
     return user.is_staff or user.is_superuser
@@ -311,7 +313,7 @@ def reportes_detallados(request):
 
     return render(request, 'herramientas/calculo_horas.html')
 
-def export_pdf(request):
+def export_operarios_pdf(request):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="operarios.pdf"'
 
@@ -354,4 +356,101 @@ def export_pdf(request):
     p.showPage()
     p.save()
     
+    return response
+
+def export_operarios_excel(request):
+    # Crear un libro de trabajo
+    workbook = openpyxl.Workbook()
+    sheet = workbook.active
+    sheet.title = 'Operarios'
+
+    # Añadir los encabezados de la tabla
+    headers = ["Usuario", "Nombres", "Apellidos", "Activo", "Administrador"]
+    sheet.append(headers)
+
+    # Añadir datos de los usuarios
+    usuarios = User.objects.all()
+    for usuario in usuarios:
+        is_active = "Sí" if usuario.is_active else "No"
+        is_admin = "Sí" if usuario.is_staff or usuario.is_superuser else "No"
+        sheet.append([usuario.username, usuario.first_name, usuario.last_name, is_active, is_admin])
+
+    # Crear una respuesta HttpResponse
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = 'attachment; filename="operarios.xlsx"'
+
+    # Guardar el libro de trabajo en la respuesta
+    workbook.save(response)
+    
+    return response
+
+def export_labor_pdf(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="labor.pdf"'
+
+    p = canvas.Canvas(response, pagesize=letter)
+    width, height = letter
+
+    # Título del PDF
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(100, height - 50, "Lista de Labores")
+
+    # Coordenadas iniciales
+    x = 50
+    y = height - 100
+
+    # Ancho de las columnas
+    col_widths = [100, 250, 200]
+
+    # Dibujar encabezados de la tabla
+    headers = ["Usuario", "Unidad", "Descripción"]
+    for i, header in enumerate(headers):
+        p.drawString(x + sum(col_widths[:i]), y, header)
+
+    # Dibujar líneas de los encabezados
+    y -= 20
+    p.line(x, y + 15, x + sum(col_widths), y + 15)
+    p.line(x, y, x + sum(col_widths), y)
+
+    # Dibujar datos de la tabla
+    labores = LABOR.objects.all()
+    for labor in labores:
+        p.drawString(x + sum(col_widths[:0]), y - 15, labor.CodUsu.username)
+        p.drawString(x + sum(col_widths[:1]), y - 15, labor.CodUni.NomUni)
+        p.drawString(x + sum(col_widths[:2]), y - 15, labor.LabDes)
+
+        # Dibujar líneas de la tabla
+        y -= 50
+        p.line(x, y + 30, x + sum(col_widths), y + 30)
+
+    p.showPage()
+    p.save()
+
+    return response
+
+
+def export_labor_excel(request):
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="labor.xlsx"'
+
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Labores"
+
+    # Encabezados de la tabla
+    headers = ["Usuario", "Unidad", "Descripción"]
+    ws.append(headers)
+
+    # Datos de la tabla
+    labores = LABOR.objects.all()
+    for labor in labores:
+        ws.append([
+            labor.CodUsu.username,
+            labor.CodUni.NomUni,
+            labor.LabDes,
+        ])
+
+    wb.save(response)
     return response
